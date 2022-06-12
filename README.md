@@ -2,7 +2,7 @@
 
 本质是对Feed2toot进行了一些修改，使它能够更好地解析AO3提供的rss feed，并调整发布嘟文时的格式。
 
-（对不起我太菜了……写解析函数的时候只针对AO3的rss订阅格式，所以这个脚本目前订阅不了其他rss）
+（对不起我太菜了……写解析函数的时候只针对AO3的rss订阅格式，所以这个脚本目前推送不了其他rss订阅）
 
 脚本安装、配置及运行方法均参见Feed2toot文档：https://feed2toot.readthedocs.io/en/latest/use.html
 
