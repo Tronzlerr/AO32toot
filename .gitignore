@@ -1,0 +1,11 @@
+docs/build/
+__pycache__
+feedlist
+*.swp
+*.pyc
+*.db
+*.ini
+*.txt
+*.bck
+*.png
+DEV.md

@@ -1,0 +1,93 @@
+## [0.17] - 2021-03-26
+### Changed
+- fix install bug while installing from sources
+- bump changelog
+
+## [0.16] - 2020-12-09
+### Added
+- scripts/register_feed2toot_app: --client-credentials-file option to change the filename in which the client credentials are stored
+- scripts/register_feed2toot_app: --user-credentials-file option to change the filename in which the client credentials are stored
+- scripts/register_feed2toot_app: --name to change the Mastodon app name
+
+## [0.15] - 2020-12-07
+### Changed
+- maintenance version
+- fix bug while using uri_list parameter alone following feedparser upgrade
+- update copyrigth
+- update author email
+
+
+## [0.14] - 2019-12-31
+### Added
+- support for line breaks in toots
+- new configuration parameter toot_max_len to define the maximum length of a toot
+- new configuration parameter no_tags_in_toot to stop hash tags to be added in toots
+
+## [0.13] - 2019-12-27
+### Added
+- new cli option --ignore-ssl and parameter ignore_ssl to ignore ssl error in the rss feeds
+
+### Changed
+- delete the lock file when using --rss-sections cli option
+
+## [0.12] - 2019-08-27
+### Changed
+- simplify code, mostly in the main function
+- fix a bug when title_pattern is used and *_pattern_case_sensitive is not defined
+
+
+## [0.11] - 2019-08-24
+### Added
+- MAJOR CHANGE: command line options --lockfile to define a lock file
+- MAJOR CHANGE: command line options --lock-timeout  to remove this lock file automatically
+- MAJOR CHANGE: lock section in configuration with lock_file andd lock_time parameters
+
+## [0.10] - 2018-09-22
+### Added
+- new syntax for the toot parameter of [rss] section. Use {summary:.100} to cut the rss field summary after the first 100 characters. Contributed by Matthias Henze
+- add the addtags parameter of the [rss] section. Contributed by Matthias Henze
+
+## [0.9] - 2018-06-07
+### Added
+- remove html characters from toots. Contributed by Matthew Lorentz and Simounet
+
+## [0.8] - 2018-05-30
+### Added
+- add the custom parameter in [media] section to join a custom media with every toots
+
+## [0.7] - 2017-09-26
+### Changed
+- fix issue while using uri_list
+
+## [0.6] - 2017-08-02
+### Added
+- define a name for a feed, accessible with {feedname}, contributed by Alexis Metaireau
+- switch the toot visibility. Contributed by The Dod
+- new accept_bozo_exceptions option to allow malformed rss feeds, contributed by Alexis Metaireau
+
+### Changed
+- configuration parser was split into much smaller chunks
+- remove useless imports and coding style, contributed by Alexis Metaireau
+- rephrasing and reformatting of the script register_feed2toot_app, contributed by Bastien Guerry
+
+## [0.5] - 2017-05-05
+### Added
+- manage rss feeds entries without id
+
+## [0.4] - 2017-04-28
+### Changed
+- [hashtaglist] section is not mandatory any more
+- bugfixes
+
+## [0.3] - 2017-04-12
+### Changed
+- remove persistentlist dependency because unstable and use own cache storage
+
+## [0.2] - 2017-04-11
+### Changed
+- register_feed2toot_app now able to generate credentials for any instance
+- remove useless tweepy dependencies
+
+## [0.1] - 2017-04-09
+### Changed
+- forking from feed2tweet

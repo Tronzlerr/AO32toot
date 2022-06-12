@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+# vim:ts=4:sw=4:ft=python:fileencoding=utf-8
+# Copyright © 2015-2021 Carl Chenet <carl.chenet@ohmytux.com>
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+from argparse import ArgumentParser
+from getpass import getpass
+from os import getcwd
+from os import linesep
+from os import sep
+from mastodon import Mastodon
+from mastodon.Mastodon import MastodonIllegalArgumentError
+import sys
+
+__version__ = '0.2'
+
+epilog = 'For more information: https://feed2toot.readthedocs.io'
+description = 'Create a Mastodon app for Feed2toot'
+parser = ArgumentParser(prog='register_feed2toot_app',
+                        description=description,
+                        epilog=epilog)
+parser.add_argument('--version', action='version', version=__version__)
+parser.add_argument('--client-credentials-file', dest='clientcredfile', help='the name of the client credentials for the Mastodon app', default='feed2toot_clientcred.txt')
+parser.add_argument('--user-credentials-file', dest='usercredfile', help='the name of the user credentials for the Mastodon app', default='feed2toot_usercred.txt')
+parser.add_argument('--name', help='the name of the Mastodon app', default='feed2toot')
+opts = parser.parse_args()
+
+clientcredfile=opts.clientcredfile
+usercredfile=opts.usercredfile
+
+headline = '{linesep}This script generates the Mastodon application credentials for Feed2toot.{linesep}{clientcredfile} and {usercredfile} will be written{linesep}in the current directory: {cwd}.{linesep}WARNING: previous files with the same names will be overwritten.{linesep}{linesep}A connection is also initiated to create the application.{linesep}Your password is *not* stored.{linesep}'.format(linesep=linesep, clientcredfile=clientcredfile, usercredfile=usercredfile, cwd=getcwd())
+print(headline)
+
+
+# get the instance
+instance = input('Mastodon instance URL (defaults to https://mastodon.social): ')
+if not instance:
+    instance = 'https://mastodon.social'
+elif not instance.startswith('http'):
+    instance = ''.join(['https://', instance])
+
+# get the username
+userok = False
+while not userok:
+    user = input('Mastodon login: ')
+    if not user:
+        print('Your Mastodon username can not be empty.')
+        userok = False
+    elif '@' not in user or '.' not in user:
+        print('Your Mastodon username should be an email.')
+        userok = False
+    else:
+        userok = True
+
+# get the password
+password = getpass(prompt='Mastodon password: ')
+Mastodon.create_app(
+      opts.name,
+      api_base_url=instance,
+      to_file = '{cwd}{sep}{clientcredfile}'.format(cwd=getcwd(), sep=sep, clientcredfile=clientcredfile)
+)
+mastodon = Mastodon(client_id = '{cwd}{sep}{clientcredfile}'.format(cwd=getcwd(), sep=sep, clientcredfile=clientcredfile),
+                    api_base_url=instance)
+try:
+    mastodon.log_in(
+        user,
+        password,
+        to_file = '{cwd}{sep}{usercredfile}'.format(cwd=getcwd(), sep=sep, usercredfile=usercredfile)
+    )
+except MastodonIllegalArgumentError as err:
+    print(err)
+    sys.exit('{linesep}I guess you entered a bad login or password.{linesep}'.format(linesep=linesep))
+
+summary = '{linesep}The app {appname} was added to your Preferences=>Accounts=>Authorized apps page.{linesep}The file {clientcredfile} and {usercredfile} were created in the current directory.{linesep}'.format(appname=opts.name,
+              linesep=linesep,
+              clientcredfile=clientcredfile,
+              usercredfile=usercredfile)
+print(summary)
+sys.exit(0)
