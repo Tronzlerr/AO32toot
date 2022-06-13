@@ -1,5 +1,7 @@
 ### 基于Feed2toot的AO3 tag订阅脚本
 
+Feed2toot: https://gitlab.com/chaica/feed2toot
+
 只是对Feed2toot做了一些小改动：更好地解析AO3提供的rss feed，调整嘟文格式。
 
 （对不起我太菜了……写解析函数的时候只针对AO3的rss订阅格式，所以这个脚本目前推送不了其他rss订阅）
