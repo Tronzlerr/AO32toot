@@ -4,7 +4,9 @@
 
 （对不起我太菜了……写解析函数的时候只针对AO3的rss订阅格式，所以这个脚本目前推送不了其他rss订阅）
 
-脚本安装、配置及运行方法均参见Feed2toot文档：https://feed2toot.readthedocs.io/en/latest/use.html
+脚本安装``python setup.py install``
+
+配置及运行方法均参见Feed2toot文档：https://feed2toot.readthedocs.io/en/latest/use.html
 
 关于配置文件中``[rss]`` section支持解析四个部分，``{title}`` - 标题，``{published}`` - 发布时间，``{link}`` - 链接，``{summary}`` - 摘要及相关信息，以下为单tag订阅示例。如需订阅多个tag请在[rss] section中使用``uri_list``参数替代``uri``。
 
